@@ -14,43 +14,48 @@ var arrWords = ["jon snow",
                 "grey worm",
                 "stannis baratheon"];
 
-
 var objGame = {
                 "word":"",
-               // "displayWord":"",
+                "unguessed":"",
                 "wrongGuess":[],
                 "rightGuess":[],
-                "unguessed":[],
-                "score":0
+                "totalGuess":[],
+                "wins":0,
+                "losses":0,
+                "status":0 //0=new match,1=match over,2=game over
 
 }
-document.addEventListener('DOMContentLoaded', function(event) {
+//document.addEventListener('DOMContentLoaded', function(event) {
     var gameBoard = document.getElementById("gameBoard");
     var wins = document.getElementById("wins");
+    var losses = document.getElementById("losses");
+    var guessed = document.getElementById("guessedLetters");
+    var imgHangman = document.getElementById("imgHangman");
 
-    wins.innerText = "WINS: " + objGame.score;
-    clearBoard();
-    
-  })
+    wins.innerText = "WINS: " + objGame.wins;
+    losses.innerText = "LOSSES: " + objGame.losses;
+   
+    clearBoard();    
+ //})
 
 
-function clearBoard(){
-    objGame.word =  arrWords[Math.floor(Math.random() * arrWords.length)];
-    objGame.unguessed = findUniqueString(objGame.word);
-    objGame.unguessed = objGame.unguessed.replace(' ','');
+function clearBoard() {
 
-    var sCurrentWordIdx = arrWords.indexOf(objGame.word);
-    arrWords.splice(sCurrentWordIdx,1);
+    if (arrWords.length > 0) {
+        objGame.status = 0
+        imgHangman.src = "assets/images/hangman_0.png"
+        objGame.wrongGuess = [];
+        objGame.rightGuess = [];
+        guessed.innerText = "GUESSED: " 
+        objGame.word = arrWords[Math.floor(Math.random() * arrWords.length)];
+        objGame.unguessed = findUniqueString(objGame.word);
+        objGame.unguessed = objGame.unguessed.replace(' ', '');             
+        var iCurrentWordIdx = arrWords.indexOf(objGame.word);
+        arrWords.splice(iCurrentWordIdx, 1);
+        gameBoard.innerText = hideUnguessedLetters(objGame).toUpperCase()
+    }
 
-    gameBoard.innerText = hideUnguessedLetters(objGame).toUpperCase()
-    //console.log(arrWords);
 }
-
-
-
-//alert(objGame.unguessed);
-//alert(hideUnguessedLetters(objGame));
-
 
 function findUniqueString(str){
     var unique = "";
@@ -61,22 +66,17 @@ function findUniqueString(str){
             unique += str[i];
         }        
     }
-
     return unique
-
 }
-
 function hideUnguessedLetters(objGame){
     
     displayWord = objGame.word
     var sLetter = ""
-      
-    
+       
     for(var i=0;i < objGame.unguessed.length; i++){
                 
         sLetter = objGame.unguessed.charAt(i) 
-        
-        
+                
         for(var x=0;x<objGame.word.length;x++){
             if (objGame.word.charAt(x) == ' '){
                 //do nothing
@@ -88,62 +88,67 @@ function hideUnguessedLetters(objGame){
 
         }
 
-
-
-       // displayWord = replaceAll(displayWord, sLetter, "_ ");
     }
-
     return displayWord
-
 }
-
-/*
-function replaceAll(str, term, replacement) {
-    return str.replace(new RegExp(escapeRegExp(term), 'g'), replacement);
-  }
-  function escapeRegExp(string){
-    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-*/
-
-//alert(findUniqueString(objGame.word.replace(' ','')));
-
-//alert(objGame.unguessed);
-
 
 document.onkeyup = function (event) {
     userSelection = event.key;
     userSelection = userSelection.toLowerCase();
-
-    console.log(userSelection)
-
+  
     if (userSelection === "escape"){
         clearBoard();
 
-    }else{
+    }else if (objGame.status == "0"){
 
+       console.log("status " + objGame.status)
+        
         if (objGame.unguessed.indexOf(userSelection) > -1 ){
             objGame.rightGuess.push(userSelection);
             objGame.unguessed =  objGame.unguessed.replace(userSelection,'');
             
+            
         }else{
-            objGame.wrongGuess.push(userSelection);
+            
+            if(objGame.wrongGuess.indexOf(userSelection)  < 0 && objGame.rightGuess.indexOf(userSelection) < 0){           
+                objGame.wrongGuess.push(userSelection);            
+                               imgHangman.src = "assets/images/hangman_" + objGame.wrongGuess.length + ".png"
+                
+
+                if(objGame.wrongGuess.length >= 9){
+                    objGame.losses = objGame.losses + 1
+                    objGame.status = "1";
+                    losses.innerText = "LOSSES: " + objGame.losses
+                    
+                }
+
+            }
+            console.log("wrong guess len: " + objGame.wrongGuess.length )     
+
         }
-    
-        console.log("hi " + objGame.unguessed.length + " " + objGame.unguessed + " " + objGame.score)
+
+        //console.log("right guess " + objGame.rightGuess)
+            var arrGuessed = objGame.rightGuess.concat(objGame.wrongGuess);
+            var guessedMessage = ""
+
+            for(var i=0;i < arrGuessed.length;i++){
+                arrGuessed[i] = arrGuessed[i].toUpperCase();
+            }
+            arrGuessed = arrGuessed.sort();
+            console.log("RIGHT: " + objGame.rightGuess )
+            console.log("Wrong: " + objGame.wrongGuess)
+            
+
+            guessed.innerText = "GUESSED: " + arrGuessed.join(" ")
+           
 
         if(objGame.unguessed.length==0){
-            console.log("IM IN")
-            objGame.score = objGame.score + 1;
-            wins.innerText = "WINS: " + objGame.score;
+            objGame.wins = objGame.wins + 1;
+            objGame.status = "1";
+            wins.innerText = "WINS: " + objGame.wins;
         }
         gameBoard.innerText = hideUnguessedLetters(objGame).toUpperCase()
 
     }
 
-
-
-    
-    //lantralert(hideUnguessedLetters(objGame).toUpperCase());
-    //alert(objGame.wrongGuess);
 }
