@@ -29,8 +29,6 @@ var objGame = {
 }
 var letters = "abcdefghijklmnopqrstuvwxyz"
 
-//document.addEventListener('DOMContentLoaded', function(event) {
-
 //Set our element variables
     var gameBoard = document.getElementById("gameBoard");
     var wins = document.getElementById("wins");
@@ -39,13 +37,11 @@ var letters = "abcdefghijklmnopqrstuvwxyz"
     var imgHangman = document.getElementById("imgHangman");
     var imgCharacter = document.getElementById("imgCharacter");
 
-
     var characterSRC = "assets/images/"
     wins.innerText = "WINS: " + objGame.wins;
     losses.innerText = "LOSSES: " + objGame.losses;
    
     clearBoard();    
-//})
 
 //Resets board for new match, if more words are available in the arrWords
 function clearBoard() {
@@ -114,11 +110,12 @@ function clearBoard() {
                 break;
 
         }
-    }else{
+    } else{
         gameBoard.innerHTML = "GAME OVER"
     }
 
 }
+
 function playTheme(){
     var audio = new Audio('https://upload.wikimedia.org/wikipedia/en/a/a8/Game_of_Thrones_Main_Title_sample.ogg');
     audio.play();
