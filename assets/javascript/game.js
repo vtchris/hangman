@@ -1,3 +1,4 @@
+//Hangman words - picture name.jpg should also be added to switch in the clearBoard function
 var arrWords = ["jon snow", 
                 "bran stark", 
                 "tyrion lannister",
@@ -14,8 +15,10 @@ var arrWords = ["jon snow",
                 "grey worm",
                 "stannis baratheon"];
 
+//Game object keeps track of current word, guessed letter, wins, and losses
 var objGame = {
                 "word":"",
+                "img":"",
                 "unguessed":"",
                 "wrongGuess":[],
                 "rightGuess":[],
@@ -23,22 +26,28 @@ var objGame = {
                 "wins":0,
                 "losses":0,
                 "status":0 //0=new match,1=match over,2=game over
-
 }
+var letters = "abcdefghijklmnopqrstuvwxyz"
+
 //document.addEventListener('DOMContentLoaded', function(event) {
+
+//Set our element variables
     var gameBoard = document.getElementById("gameBoard");
     var wins = document.getElementById("wins");
     var losses = document.getElementById("losses");
     var guessed = document.getElementById("guessedLetters");
     var imgHangman = document.getElementById("imgHangman");
+    var imgCharacter = document.getElementById("imgCharacter");
 
+
+    var characterSRC = "assets/images/"
     wins.innerText = "WINS: " + objGame.wins;
     losses.innerText = "LOSSES: " + objGame.losses;
    
     clearBoard();    
- //})
+//})
 
-
+//Resets board for new match, if more words are available in the arrWords
 function clearBoard() {
 
     if (arrWords.length > 0) {
@@ -53,10 +62,63 @@ function clearBoard() {
         var iCurrentWordIdx = arrWords.indexOf(objGame.word);
         arrWords.splice(iCurrentWordIdx, 1);
         gameBoard.innerText = hideUnguessedLetters(objGame).toUpperCase()
+
+        //assigns picture based on current word selected for match
+        imgCharacter.src = ""
+        characterSRC = "assets/images/"
+        switch (objGame.word) {
+            case "bran stark":
+                characterSRC = characterSRC + "bran.jpg"
+                break;
+            case "brienne of tarth":
+                characterSRC = characterSRC + "brienne.jpg"
+                break;
+            case "cersei lannister":
+                characterSRC = characterSRC + "cersei.jpg"
+                break;
+            case "daenerys targaryen":
+                characterSRC = characterSRC + "daenerys.jpg"
+                break;
+            case "grey worm":
+                characterSRC = characterSRC + "grey.jpg"
+                break;
+            case "hodor":
+                characterSRC = characterSRC + "hodor.jpg"
+                break;
+            case "jaime lannister":
+                characterSRC = characterSRC + "jaime.jpg"
+                break;
+            case "jon snow":
+                characterSRC = characterSRC + "jon.jpg"
+                break;
+            case "olenna tyrell":
+                characterSRC = characterSRC + "olenna.jpg"
+                break;
+            case "petyr baelish":
+                characterSRC = characterSRC + "petyr.jpg"
+                break;
+            case "ramsay bolton":
+                characterSRC = characterSRC + "ramsay.jpg"
+                break;
+            case "stannis baratheon":
+                characterSRC = characterSRC + "stannis.jpg"
+                break;
+            case "theon greyjoy":
+                characterSRC = characterSRC + "theon.jpg"
+                break;
+            case "tommen baratheon":
+                characterSRC = characterSRC + "tommen.jpg"
+                break;
+            case "tyrion lannister":
+                characterSRC = characterSRC + "tyrion.jpg"
+                break;
+
+        }
     }
 
 }
 
+//Finds unique letters in word string
 function findUniqueString(str){
     var unique = "";
 
@@ -68,6 +130,7 @@ function findUniqueString(str){
     }
     return unique
 }
+//Replaces unguessed letters with _ to be displayed to user
 function hideUnguessedLetters(objGame){
     
     displayWord = objGame.word
@@ -83,7 +146,7 @@ function hideUnguessedLetters(objGame){
             }
             else if (objGame.word.charAt(x) == sLetter){
                 displayWord = displayWord.replace(sLetter,'_');
-                console.log(x + ' ' + objGame.word.charAt(x))
+                //console.log(x + ' ' + objGame.word.charAt(x))
             }
 
         }
@@ -92,42 +155,54 @@ function hideUnguessedLetters(objGame){
     return displayWord
 }
 
+//Actions that occur when user types
 document.onkeyup = function (event) {
+
+    //Get key typed and put into lower case
     userSelection = event.key;
     userSelection = userSelection.toLowerCase();
   
+    //If escape is pushed, reset the board
     if (userSelection === "escape"){
+
+        //If match was not yet won or lost, put word back in circulation.
+        if (objGame.status == 0){
+            arrWords.push(objGame.word);
+        }
+
         clearBoard();
 
+    //Continue if game has not been won or lost yet
     }else if (objGame.status == "0"){
 
-       console.log("status " + objGame.status)
-        
+       
+        //If check if letter is part of the word, and not yet guessed
         if (objGame.unguessed.indexOf(userSelection) > -1 ){
             objGame.rightGuess.push(userSelection);
             objGame.unguessed =  objGame.unguessed.replace(userSelection,'');
-            
-            
-        }else{
-            
-            if(objGame.wrongGuess.indexOf(userSelection)  < 0 && objGame.rightGuess.indexOf(userSelection) < 0){           
-                objGame.wrongGuess.push(userSelection);            
-                               imgHangman.src = "assets/images/hangman_" + objGame.wrongGuess.length + ".png"
-                
+            gameBoard.innerText = hideUnguessedLetters(objGame).toUpperCase()
+         
+        //Letter is not part of the word    
+        } else if(letters.indexOf(userSelection) > -1) {
 
-                if(objGame.wrongGuess.length >= 9){
+            //Proceed if letter has not been guessed before
+            if (objGame.wrongGuess.indexOf(userSelection) < 0 && objGame.rightGuess.indexOf(userSelection) < 0) {
+                //Record wrong guess and update hangman image
+                objGame.wrongGuess.push(userSelection);
+                imgHangman.src = "assets/images/hangman_" + objGame.wrongGuess.length + ".png"
+
+                //If hangman image is complete, record loss and reveal word
+                if (objGame.wrongGuess.length >= 9) {
                     objGame.losses = objGame.losses + 1
                     objGame.status = "1";
                     losses.innerText = "LOSSES: " + objGame.losses
-                    
+                    gameBoard.innerText = objGame.word.toUpperCase();
                 }
 
             }
-            console.log("wrong guess len: " + objGame.wrongGuess.length )     
-
+            
         }
-
-        //console.log("right guess " + objGame.rightGuess)
+            //Displayed guessed letters in alphabetical order
             var arrGuessed = objGame.rightGuess.concat(objGame.wrongGuess);
             var guessedMessage = ""
 
@@ -135,20 +210,19 @@ document.onkeyup = function (event) {
                 arrGuessed[i] = arrGuessed[i].toUpperCase();
             }
             arrGuessed = arrGuessed.sort();
-            console.log("RIGHT: " + objGame.rightGuess )
-            console.log("Wrong: " + objGame.wrongGuess)
-            
-
             guessed.innerText = "GUESSED: " + arrGuessed.join(" ")
            
-
+        //If match is won, update wins
         if(objGame.unguessed.length==0){
             objGame.wins = objGame.wins + 1;
             objGame.status = "1";
             wins.innerText = "WINS: " + objGame.wins;
         }
-        gameBoard.innerText = hideUnguessedLetters(objGame).toUpperCase()
-
+        //If the match is ended (won or lost) reveal the character image
+        if (objGame.status > 0){
+            imgCharacter.src = characterSRC
+        } 
+       
     }
 
 }
