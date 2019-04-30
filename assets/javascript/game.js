@@ -1,18 +1,18 @@
 //Hangman words - picture name.jpg should also be added to switch in the clearBoard function
 var arrWords = ["jon snow", 
-                "bran stark", 
-                "tyrion lannister",
-                "theon greyjoy",
-                "petyr baelish",
-                "brienne of tarth",
-                "ramsay bolton",
-                "tommen baratheon",
-                "cersei lannister",
-                "jaime lannister",
-                "olenna tyrell",
-                "hodor",
-                "daenerys targaryen",
-                "grey worm",
+                //"bran stark", 
+                //"tyrion lannister",
+                //"theon greyjoy",
+                //"petyr baelish",
+                //"brienne of tarth",
+                //"ramsay bolton",
+                //"tommen baratheon",
+                //"cersei lannister",
+                //"jaime lannister",
+                //"olenna tyrell",
+                //"hodor",
+                //"daenerys targaryen",
+                //"grey worm",
                 "stannis baratheon"];
 
 //Game object keeps track of current word, guessed letter, wins, and losses
@@ -22,7 +22,7 @@ var objGame = {
                 "unguessed":"",
                 "wrongGuess":[],
                 "rightGuess":[],
-                "totalGuess":[],
+               // "totalGuess":[],
                 "wins":0,
                 "losses":0,
                 "status":0 //0=new match,1=match over,2=game over
@@ -114,8 +114,14 @@ function clearBoard() {
                 break;
 
         }
+    }else{
+        gameBoard.innerHTML = "GAME OVER"
     }
 
+}
+function playTheme(){
+    var audio = new Audio('https://upload.wikimedia.org/wikipedia/en/a/a8/Game_of_Thrones_Main_Title_sample.ogg');
+    audio.play();
 }
 
 //Finds unique letters in word string
@@ -193,6 +199,7 @@ document.onkeyup = function (event) {
 
                 //If hangman image is complete, record loss and reveal word
                 if (objGame.wrongGuess.length >= 9) {
+                    playTheme();
                     objGame.losses = objGame.losses + 1
                     objGame.status = "1";
                     losses.innerText = "LOSSES: " + objGame.losses
@@ -214,6 +221,7 @@ document.onkeyup = function (event) {
            
         //If match is won, update wins
         if(objGame.unguessed.length==0){
+            playTheme()
             objGame.wins = objGame.wins + 1;
             objGame.status = "1";
             wins.innerText = "WINS: " + objGame.wins;

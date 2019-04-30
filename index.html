@@ -1,21 +1,51 @@
 <!DOCTYPE html>
     <html lang="en-US">
         <head>
-            <title></title>
+            <title>Game of Thrones Hangman</title>
+            <!--link rel="stylesheet" href="assets/css/reset.css"-->
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
             <link rel="stylesheet" href="assets/css/style.css">
             
         </head>
         <body>
-            <section id="score">
-                <h1 id="wins"></h1>
-                <h1 id="losses"></h1>
-                <h3 id="guessedLetters"></h3>
-            </section>
-            <img id="imgHangman" src="assets/images/hangman_0.png" alt="Hangman Image">
-            <img id="imgCharacter">
-            <section id="gameBoard">
-                
-
+            <header class="mb-5">
+                    <img class="imgHeader" src="assets/images/got.jpg">
+            </header>
+            
+            <section class="container-fluid">
+                <div class="d-flex flex-sm-row mb-4 bg-white border">
+                    <div class="col col-sm-3">
+                        <img id="imgHangman" src="assets/images/hangman_0.png" alt="Hangman Image">
+                    </div>
+                    <div class="col col-sm-6">
+                        <h1 id="wins"></h1>
+                        <h1 id="losses"></h1>
+            
+                    </div>
+            
+                    <div class="col col-sm-3">
+                        <img id="imgCharacter">
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col col-12">
+                        <h3 id="guessedLetters"></h3>
+            
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col col-12 text-center">
+                        <section id="gameBoard">
+            
+            
+                        </section>
+            
+                    </div>
+            
+                </div>
+            
             </section>
             
             <script src="assets/javascript/game.js"></script>
