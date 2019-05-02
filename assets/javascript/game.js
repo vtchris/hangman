@@ -1,18 +1,18 @@
 //Hangman words - picture name.jpg should also be added to switch in the clearBoard function
-var arrWords = ["jon snow", 
+var arrWords = [//"jon snow", 
                 "bran stark", 
-                "tyrion lannister",
-                "theon greyjoy",
-                "petyr baelish",
-                "brienne of tarth",
-                "ramsay bolton",
-                "tommen baratheon",
-                "cersei lannister",
+                //"tyrion lannister",
+                //"theon greyjoy",
+                //"petyr baelish",
+                //"brienne of tarth",
+                //"ramsay bolton",
+                //"tommen baratheon",
+                //"cersei lannister",
                 "jaime lannister",
-                "olenna tyrell",
-                "hodor",
+                //"olenna tyrell",
+                //"hodor",
                 "daenerys targaryen",
-                "grey worm",
+                //"grey worm",
                 "stannis baratheon"];
 
 //Game object keeps track of current word, guessed letter, wins, and losses
@@ -36,6 +36,8 @@ var letters = "abcdefghijklmnopqrstuvwxyz"
     var guessed = document.getElementById("guessedLetters");
     var imgHangman = document.getElementById("imgHangman");
     var imgCharacter = document.getElementById("imgCharacter");
+    var txtHidden = document.getElementById("txtMobile");
+    
 
     var characterSRC = "assets/images/"
     wins.innerText = "WINS: " + objGame.wins;
@@ -59,6 +61,12 @@ function clearBoard() {
         arrWords.splice(iCurrentWordIdx, 1);
         gameBoard.innerText = hideUnguessedLetters(objGame).toUpperCase()
 
+        //debugger;
+        if(txtHidden.style.visibility == "visible"){
+            
+            txtHidden.onFocus()
+        }
+        
         //assigns picture based on current word selected for match
         imgCharacter.src = ""
         characterSRC = "assets/images/"
@@ -164,9 +172,14 @@ document.onkeyup = function (event) {
     //Get key typed and put into lower case
     userSelection = event.key;
     userSelection = userSelection.toLowerCase();
+
+    //debugger;
+    if (txtHidden.value.length > 0){
+        txtHidden.value = '';
+    }
   
     //If escape is pushed, reset the board
-    if (userSelection === "escape"){
+    if (userSelection === "escape" || userSelection === "esc"){
 
         //If match was not yet won or lost, put word back in circulation.
         if (objGame.status == 0){
@@ -229,5 +242,6 @@ document.onkeyup = function (event) {
         } 
        
     }
-
+    
+    
 }
