@@ -19,13 +19,18 @@ img{
     font-size: 50px;
     letter-spacing: 5px;
 }
-/* PHONE RESPONSIVE STYLES */
+
+/* PHONE/TABLET RESPONSIVE STYLES */
 @media screen and (max-width: 1024px){
     #txtMobile{
         visibility: visible;
-    }
+    }   
+    .mb-5{
+        margin-bottom: 1rem!important;
+    } 
 }
-@media screen and (min-width: 1024px){
+/* DESKTOP/LAPTOP RESPONSIVE STYLES */
+@media screen and (min-width: 1025px){
     #txtMobile{
         visibility: hidden;
     }
