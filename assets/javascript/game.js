@@ -15,7 +15,7 @@ var arrWords = ["jon snow",
                 "grey worm",
                 "stannis baratheon"];
 
-//Game object keeps track of current word, guessed letter, wins, and losses
+//Game object keeps track of current word, guessed letters, wins, and losses
 var objGame = {
                 "word":"",
                 "img":"",
@@ -56,15 +56,10 @@ function clearBoard() {
         objGame.word = arrWords[Math.floor(Math.random() * arrWords.length)];
         objGame.unguessed = findUniqueString(objGame.word);
         objGame.unguessed = objGame.unguessed.replace(' ', '');             
+        //Remove current word from arrWords
         var iCurrentWordIdx = arrWords.indexOf(objGame.word);
         arrWords.splice(iCurrentWordIdx, 1);
         gameBoard.innerText = hideUnguessedLetters(objGame).toUpperCase()
-
-        //debugger;
-        if(txtHidden.style.visibility == "visible"){
-            
-            txtHidden.onFocus()
-        }
         
         //assigns picture based on current word selected for match
         imgCharacter.src = ""
@@ -191,7 +186,7 @@ document.onkeyup = function (event) {
     }else if (objGame.status == "0"){
 
        
-        //If check if letter is part of the word, and not yet guessed
+        //Check if letter is part of the word, and not yet guessed
         if (objGame.unguessed.indexOf(userSelection) > -1 ){
             objGame.rightGuess.push(userSelection);
             objGame.unguessed =  objGame.unguessed.replace(userSelection,'');
