@@ -22,6 +22,12 @@ img{
 
 /* PHONE/TABLET RESPONSIVE STYLES */
 @media screen and (max-width: 1024px){
+    #btnEscape{
+        visibility: visible;
+    }
+    #gameOverMsg{
+        visibility: hidden;
+    }
     #txtMobile{
         visibility: visible;
     }   
@@ -31,6 +37,12 @@ img{
 }
 /* DESKTOP/LAPTOP RESPONSIVE STYLES */
 @media screen and (min-width: 1025px){
+    #btnEscape{
+        visibility: hidden;
+    }
+    #gameOverMsg{
+        visibility: visible;
+    }
     #txtMobile{
         visibility: hidden;
     }

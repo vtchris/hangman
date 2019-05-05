@@ -36,11 +36,22 @@ var letters = "abcdefghijklmnopqrstuvwxyz"
     var imgHangman = document.getElementById("imgHangman");
     var imgCharacter = document.getElementById("imgCharacter");
     var txtHidden = document.getElementById("txtMobile");
+    var gameOverMsg = document.getElementById("gameOverMsg");
     
 
     var characterSRC = "assets/images/"
     wins.innerText = "WINS: " + objGame.wins;
     losses.innerText = "LOSSES: " + objGame.losses;
+    
+    document.addEventListener("click", function(event) {
+
+        if (!event.target.matches("#btnEscape")){
+            return;
+        }
+
+        NextWord();
+
+    }, false);
    
     clearBoard();    
 
@@ -49,6 +60,7 @@ function clearBoard() {
 
     if (arrWords.length > 0) {
         objGame.status = 0
+        gameOverMsg.innerHTML = "";
         imgHangman.src = "assets/images/hangman_0.png"
         objGame.wrongGuess = [];
         objGame.rightGuess = [];
@@ -159,15 +171,25 @@ function hideUnguessedLetters(objGame){
     }
     return displayWord
 }
+function NextWord(){
+
+    //If match was not yet won or lost, put word back in circulation.
+    if (objGame.status == 0){
+        arrWords.push(objGame.word);
+    }
+
+    clearBoard();
+}
 
 //Actions that occur when user types
 document.onkeyup = function (event) {
 
     //Get key typed and put into lower case
+    
     userSelection = event.key;
+    debugger;
     userSelection = userSelection.toLowerCase();
-
-    //debugger;
+    
     if (txtHidden.value.length > 0){
         txtHidden.value = '';
     }
@@ -175,12 +197,7 @@ document.onkeyup = function (event) {
     //If escape is pushed, reset the board
     if (userSelection === "escape" || userSelection === "esc"){
 
-        //If match was not yet won or lost, put word back in circulation.
-        if (objGame.status == 0){
-            arrWords.push(objGame.word);
-        }
-
-        clearBoard();
+        NextWord();
 
     //Continue if game has not been won or lost yet
     }else if (objGame.status == "0"){
@@ -232,6 +249,7 @@ document.onkeyup = function (event) {
         }
         //If the match is ended (won or lost) reveal the character image
         if (objGame.status > 0){
+            gameOverMsg.innerHTML = "Press Escape to continue, if you dare!";
             imgCharacter.src = characterSRC
         } 
        
