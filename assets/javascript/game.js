@@ -186,8 +186,7 @@ document.onkeyup = function (event) {
 
     //Get key typed and put into lower case
     
-    userSelection = event.key;
-    debugger;
+    userSelection = event.key;  
     userSelection = userSelection.toLowerCase();
     
     if (txtHidden.value.length > 0){

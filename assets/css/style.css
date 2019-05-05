@@ -22,6 +22,15 @@ img{
 
 /* PHONE/TABLET RESPONSIVE STYLES */
 @media screen and (max-width: 1024px){
+    .col h1 {
+        font-size: 18px;
+    }
+    img{
+        height: 70px;width: auto;
+    }
+    .imgHeader{
+        height:70px;width:auto;
+    }
     #btnEscape{
         visibility: visible;
     }
