@@ -1,19 +1,22 @@
 <h1>Game of Thrones - Hangman</h1>
-<hr>
 
 Play online at:
 https://vtchris.github.io/hangman/
 
 <h2>Technology</h2>
-<hr>
+
 <ul>
      <li>JavaScript</li>
      <li>Bootstrap</li>
      <li>HTML/CSS</li>
 </ul>
 
+<p>This game uses onkeyup to determine your guessed letter. I noticed that this did not work on mobile devices since there was not text-box to trigger the mobile keyboard. To address this issue, I have a text-box that is displayed on smaller screens. Once the letter is captured, I clear the text-box. Press ESC to move to the next word. Thanks for playing, have fun!</p>
+
+![](assets/images/demo/hangman-demo-1.jpg)
+
 <h2>Mission (Homework)</h2> 
-<hr>
+
 # hangman
 
 # JavaScript Assignment
