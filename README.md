@@ -1,3 +1,19 @@
+<h1>Game of Thrones - Hangman</h1>
+<hr>
+
+Play online at:
+https://vtchris.github.io/hangman/
+
+<h2>Technology</h2>
+<hr>
+<ul>
+     <li>JavaScript</li>
+     <li>Bootstrap</li>
+     <li>HTML/CSS</li>
+</ul>
+
+<h2>Mission (Homework)</h2> 
+<hr>
 # hangman
 
 # JavaScript Assignment
@@ -41,29 +57,6 @@ In this assignment, you'll create one of two possible computer games: Word Guess
 7. Note: There's no shame if you'd prefer submitting Psychic—it's still a proper challenge.
 
 8. Push your selected game to Github Pages.
-
-
-## Option One: Psychic Game (Basic)
-
-![Psychic](Images/1-Psychic.jpg)
-
-1. [Watch the demo](https://youtu.be/qTc45Lox97g).
-
-2. You're going to make a game just like the one in the video. Essentially, the app randomly picks a letter, and the user has to guess which letter the app chose. Put the following text on your page:
-
-3. Guess what letter I'm thinking of
-
-4. Wins: (# of times the user has guessed the letter correctly)
-
-5. Losses: (# of times the user has failed to guess the letter correctly after exhausting all guesses)
-
-6. Guesses Left: (# of guesses left. This will update)
-
-7. Your Guesses So Far: (the specific letters that the user typed. Display these until the user either wins or loses.)
-
-8. When the player wins, increase the Wins counter and start the game over again (without refreshing the page).
-
-9. When the player loses, increase the Losses counter and restart the game without a page refresh (just like when the user wins).
 
 ## Option Two: Word Guess Game (Challenge - Recommended)
 
@@ -128,25 +121,9 @@ In this assignment, you'll create one of two possible computer games: Word Guess
 
 8. Turn in anything you have! Even if you don't finish, we still want to see what you were able to accomplish in the time we gave you. This will help us know what concepts we could help you with, as well as what topics we should focus on in the coming lectures.
 
-### Reminder: Submission on BCS
-
-* Please submit both the deployed Github.io link to your homework AND the link to the Github Repository!
-
-- - -
-
 ### Minimum Requirements
 
 Attempt to complete homework assignment as described in instructions. If unable to complete certain portions, please pseudocode these portions to describe what remains to be completed. Adding a README.md as well as adding this homework to your portfolio are required as well and more information can be found below.
-
-- - -
-
-### Create a README.md
-
-Add a `README.md` to your repository describing the project. Here are some resources for creating your `README.md`. Here are some resources to help you along the way:
-
-* [About READMEs](https://help.github.com/articles/about-readmes/)
-
-* [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
 
 - - -
 
