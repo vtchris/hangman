@@ -11,7 +11,7 @@ https://vtchris.github.io/hangman/
      <li>HTML/CSS</li>
 </ul>
 
-<p>This game uses onkeyup to determine your guessed letter. I noticed that this did not work on mobile devices since there was not text-box to trigger the mobile keyboard. To address this issue, I have a text-box that is displayed on smaller screens. Once the letter is captured, I clear the text-box. Press ESC to move to the next word. Thanks for playing, have fun!</p>
+<p>This game uses onkeyup to determine your guessed letter. I noticed that this did not work on mobile devices since there was no textbox to trigger the mobile keyboard. To address this issue I have a textbox that is displayed on smaller screens using an @media query. Once the letter is captured, I clear the text-box. Press ESC to move to the next word. Thanks for playing, have fun!</p>
 
 ![](assets/images/demo/hangman-demo-1.jpg)
 
